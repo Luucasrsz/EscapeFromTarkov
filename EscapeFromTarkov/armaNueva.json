@@ -1,0 +1,16 @@
+{
+    "municiones": [
+        "7.62x51mm M80",
+        "7.62x51mm M61",
+        "7.62x51mm M62",
+        "7.62x51mm M80 Tracer",
+        "7.62x51mm M993"
+    ],
+    "tipo": "Fusil de Asalto",
+    "modo_disparo": [
+        "Automatico",
+        "Unico"
+    ],
+    "modificaciones": [],
+    "nombre": ""
+}
