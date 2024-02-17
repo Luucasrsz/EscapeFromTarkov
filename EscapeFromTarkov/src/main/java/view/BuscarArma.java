@@ -51,7 +51,7 @@ public class BuscarArma extends JDialog implements ActionListener, KeyListener {
 		this.controller = controller;
 
 		getContentPane().setBackground(new Color(192, 192, 192));
-		setBounds(100, 100, 1100, 580);
+		setBounds(100, 100, 960,540);
 		getContentPane().setLayout(null);
 		contentPanel.setBounds(0, 542, 1086, 1);
 		contentPanel.setBackground(new Color(192, 192, 192));
@@ -60,50 +60,51 @@ public class BuscarArma extends JDialog implements ActionListener, KeyListener {
 		contentPanel.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(
-				"C:\\Users\\lucas\\Desktop\\DAM\\Acceso a datos\\EscapeFromTarkov\\src\\main\\resources\\LOGO (1).png"));
-		lblNewLabel.setBounds(292, 20, 499, 139);
+		lblNewLabel.setIcon(new ImageIcon(getClass().getResource("/images/LOGO.png")));
+		lblNewLabel.setBounds(230, 22, 499, 139);
 		getContentPane().add(lblNewLabel);
 
 		JLabel lblNombreDelAtributo = new JLabel("Nombre del atributo:\r\n");
-		lblNombreDelAtributo.setFont(new Font("MV Boli", Font.BOLD, 19));
-		lblNombreDelAtributo.setBounds(57, 228, 218, 26);
+		lblNombreDelAtributo.setFont(new Font("OCR A Extended", Font.BOLD, 19));
+		lblNombreDelAtributo.setBounds(24, 228, 251, 26);
 		getContentPane().add(lblNombreDelAtributo);
 
 		JLabel lblNombreDelValor = new JLabel("Nombre del valor:\r\n");
-		lblNombreDelValor.setFont(new Font("MV Boli", Font.BOLD, 19));
-		lblNombreDelValor.setBounds(57, 335, 218, 26);
+		lblNombreDelValor.setFont(new Font("OCR A Extended", Font.BOLD, 19));
+		lblNombreDelValor.setBounds(24, 334, 213, 26);
 		getContentPane().add(lblNombreDelValor);
 
 		txtAtributo = new JTextField();
-		txtAtributo.setFont(new Font("Arial", Font.PLAIN, 18));
+		txtAtributo.setFont(new Font("OCR A Extended", Font.PLAIN, 18));
 		txtAtributo.setColumns(10);
 		txtAtributo.setBackground(Color.WHITE);
-		txtAtributo.setBounds(271, 228, 146, 26);
+		txtAtributo.setBounds(285, 228, 132, 26);
 		getContentPane().add(txtAtributo);
 		txtAtributo.addKeyListener(this);
 
 		txtNombre = new JTextField();
-		txtNombre.setFont(new Font("Arial", Font.PLAIN, 18));
+		txtNombre.setFont(new Font("OCR A Extended", Font.PLAIN, 18));
 		txtNombre.setColumns(10);
 		txtNombre.setBackground(Color.WHITE);
-		txtNombre.setBounds(271, 335, 146, 26);
+		txtNombre.setBounds(249, 335, 168, 26);
 		getContentPane().add(txtNombre);
 		txtNombre.addKeyListener(this);
 
 		btnBuscarArma = new JButton("Buscar arma");
-		btnBuscarArma.setForeground(Color.RED);
-		btnBuscarArma.setFont(new Font("MV Boli", Font.PLAIN, 32));
+		btnBuscarArma.setForeground(new Color(0, 0, 0));
+		btnBuscarArma.setFont(new Font("OCR A Extended", Font.PLAIN, 32));
 		btnBuscarArma.setEnabled(false);
-		btnBuscarArma.setBounds(100, 415, 263, 60);
+		btnBuscarArma.setBounds(100, 398, 263, 60);
 		getContentPane().add(btnBuscarArma);
 		btnBuscarArma.addActionListener(this);
 
 		consola = new JScrollPane();
-		consola.setBounds(551, 202, 474, 273);
+		consola.setBounds(442, 202, 474, 273);
 		getContentPane().add(consola);
 
 		textArea = new JTextArea();
+		textArea.setEditable(false);
+		textArea.setFont(new Font("OCR A Extended", Font.PLAIN, 13));
 		consola.setViewportView(textArea);
 
 		txtrError = new JTextArea();
@@ -111,7 +112,7 @@ public class BuscarArma extends JDialog implements ActionListener, KeyListener {
 		txtrError.setForeground(new Color(255, 0, 0));
 		txtrError.setText("ERROR EN LA BUSQUEDA");
 		txtrError.setBackground(new Color(192, 192, 192));
-		txtrError.setBounds(100, 496, 401, 22);
+		txtrError.setBounds(100, 471, 401, 22);
 		getContentPane().add(txtrError);
 	}
 
@@ -126,7 +127,9 @@ public class BuscarArma extends JDialog implements ActionListener, KeyListener {
 
 			if (!doc.hasNext()) {
 				txtrError.setVisible(true);
+				textArea.setText("");
 			} else {
+				txtrError.setVisible(false);
 				textArea.setText("");
 				while (doc.hasNext()) {
 					textArea.setText(textArea.getText() + gson.toJson(doc.next()));

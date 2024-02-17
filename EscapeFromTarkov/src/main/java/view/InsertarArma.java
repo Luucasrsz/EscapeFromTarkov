@@ -15,8 +15,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import org.bson.Document;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import com.mongodb.client.MongoCursor;
 
 import controller.TarkovController;
 
@@ -24,6 +27,7 @@ import javax.swing.JComboBox;
 
 import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTextArea;
 
 public class InsertarArma extends JDialog implements ActionListener, KeyListener {
 
@@ -44,16 +48,18 @@ public class InsertarArma extends JDialog implements ActionListener, KeyListener
 	private JSONArray modo_disparo;
 	private JSONArray municiones;
 	private JButton btnInsertarArma;
-	private JTextField txtErrorAlInsertar;
-	private JComboBox<String> tipo ;
+	private JComboBox<String> tipo;
+	private JTextArea txtrErrorAlInsertar;
+	private JTextArea txtrAtributoAnadido;
 
 	/**
 	 * Create the dialog.
 	 */
 	public InsertarArma(TarkovController controller) {
 		this.controller = controller;
+		
 
-		setBounds(100, 100, 1100, 580);
+		setBounds(100, 100, 960, 540);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setForeground(new Color(0, 0, 0));
 		contentPanel.setBackground(new Color(192, 192, 192));
@@ -62,81 +68,82 @@ public class InsertarArma extends JDialog implements ActionListener, KeyListener
 		contentPanel.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setBounds(276, 10, 499, 139);
-		lblNewLabel.setIcon(new ImageIcon(
-				"C:\\Users\\lucas\\Desktop\\DAM\\Acceso a datos\\EscapeFromTarkov\\src\\main\\resources\\LOGO (1).png"));
+		lblNewLabel.setBounds(223, 25, 499, 139);
+		lblNewLabel.setIcon(new ImageIcon(getClass().getResource("/images/LOGO.png")));
 		contentPanel.add(lblNewLabel);
 
 		nombre = new JTextField();
-		nombre.setBounds(223, 300, 146, 26);
+		nombre.setBounds(231, 261, 196, 26);
 		nombre.setBackground(new Color(255, 255, 255));
-		nombre.setFont(new Font("Arial", Font.PLAIN, 18));
+		nombre.setFont(new Font("OCR A Extended", Font.PLAIN, 18));
 		contentPanel.add(nombre);
 		nombre.setColumns(10);
 		nombre.addKeyListener(this);
 
 		JLabel lblNombreArma = new JLabel("Nombre del arma:\r\n");
-		lblNombreArma.setBounds(43, 299, 196, 26);
-		lblNombreArma.setFont(new Font("MV Boli", Font.BOLD, 19));
+		lblNombreArma.setBounds(28, 260, 219, 26);
+		lblNombreArma.setFont(new Font("OCR A Extended", Font.BOLD, 19));
 		contentPanel.add(lblNombreArma);
 
-		JLabel lblTipo = new JLabel("Tipo:\r\n");
-		lblTipo.setBounds(43, 230, 67, 26);
-		lblTipo.setFont(new Font("MV Boli", Font.BOLD, 19));
+		JLabel lblTipo = new JLabel("Tipo del arma:\r\n");
+		lblTipo.setBounds(28, 191, 181, 26);
+		lblTipo.setFont(new Font("OCR A Extended", Font.BOLD, 19));
 		contentPanel.add(lblTipo);
 
 		tipo = new JComboBox<>(options);
-		tipo.setBounds(223, 231, 146, 26);
-		tipo.setFont(new Font("Arial", Font.PLAIN, 18));
+		tipo.setBounds(231, 192, 196, 26);
+		tipo.setFont(new Font("OCR A Extended", Font.PLAIN, 18));
 		contentPanel.add(tipo);
 
 		btnInsertarArma = new JButton("Insertar arma");
-		btnInsertarArma.setForeground(new Color(255, 0, 0));
+		btnInsertarArma.setForeground(new Color(0, 0, 0));
 		btnInsertarArma.setEnabled(false);
-		btnInsertarArma.setBounds(379, 448, 263, 60);
-		btnInsertarArma.setFont(new Font("MV Boli", Font.PLAIN, 32));
+		btnInsertarArma.setBounds(329, 408, 263, 60);
+		btnInsertarArma.setFont(new Font("OCR A Extended", Font.PLAIN, 29));
 		contentPanel.add(btnInsertarArma);
 		btnInsertarArma.addActionListener(this);
 
-		JLabel lblOtroAtributo = new JLabel("Otro Atributo");
-		lblOtroAtributo.setFont(new Font("MV Boli", Font.BOLD, 19));
-		lblOtroAtributo.setBounds(43, 376, 196, 26);
+		JLabel lblOtroAtributo = new JLabel("Otro Atributo:");
+		lblOtroAtributo.setFont(new Font("OCR A Extended", Font.BOLD, 19));
+		lblOtroAtributo.setBounds(28, 337, 196, 26);
 		contentPanel.add(lblOtroAtributo);
 
 		comboBoxAtributo = new JComboBox();
-		comboBoxAtributo.setFont(new Font("Arial", Font.PLAIN, 18));
+		comboBoxAtributo.setFont(new Font("OCR A Extended", Font.PLAIN, 18));
 		comboBoxAtributo.setModel(new DefaultComboBoxModel(new String[] { "Ninguno", "Ergonomía", "Calibre",
 				"Precisión", "Capacidad", "Municiones", "Modificaciones", "Modo_Disparo", "Otro" }));
-		comboBoxAtributo.setBounds(223, 377, 146, 27);
+		comboBoxAtributo.setBounds(231, 338, 196, 27);
 		contentPanel.add(comboBoxAtributo);
 		comboBoxAtributo.addActionListener(this);
 
 		txtNombre = new JTextField();
+		txtNombre.setFont(new Font("OCR A Extended", Font.PLAIN, 18));
 		txtNombre.setVisible(false);
-		txtNombre.setBounds(739, 303, 146, 26);
+		txtNombre.setBounds(739, 264, 197, 26);
 		contentPanel.add(txtNombre);
 		txtNombre.setColumns(10);
 		txtNombre.addKeyListener(this);
 
 		txtAtributo = new JTextField();
+		txtAtributo.setFont(new Font("OCR A Extended", Font.PLAIN, 18));
 		txtAtributo.setVisible(false);
 		txtAtributo.setEditable(false);
 		txtAtributo.setBackground(new Color(192, 192, 192));
-		txtAtributo.setBounds(739, 234, 146, 26);
+		txtAtributo.setBounds(750, 192, 186, 26);
 		contentPanel.add(txtAtributo);
 		txtAtributo.setColumns(10);
 		txtAtributo.addKeyListener(this);
 
 		lblAtributo = new JLabel("Nombre del atributo:");
 		lblAtributo.setVisible(false);
-		lblAtributo.setFont(new Font("MV Boli", Font.BOLD, 19));
-		lblAtributo.setBounds(496, 230, 364, 26);
+		lblAtributo.setFont(new Font("OCR A Extended", Font.BOLD, 19));
+		lblAtributo.setBounds(496, 191, 364, 26);
 		contentPanel.add(lblAtributo);
 
 		lblNombre = new JLabel("Valor del atributo\r\n");
 		lblNombre.setVisible(false);
-		lblNombre.setFont(new Font("MV Boli", Font.BOLD, 19));
-		lblNombre.setBounds(496, 299, 364, 26);
+		lblNombre.setFont(new Font("OCR A Extended", Font.BOLD, 19));
+		lblNombre.setBounds(496, 260, 364, 26);
 		contentPanel.add(lblNombre);
 
 		jsonArma = new JSONObject();
@@ -145,20 +152,30 @@ public class InsertarArma extends JDialog implements ActionListener, KeyListener
 		municiones = new JSONArray();
 
 		btnAnadir = new JButton("Añadir Atributo\r\n");
+		btnAnadir.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
 		btnAnadir.setEnabled(false);
 		btnAnadir.setVisible(false);
-		btnAnadir.setBounds(633, 368, 167, 49);
+		btnAnadir.setBounds(641, 329, 167, 49);
 		contentPanel.add(btnAnadir);
-		btnAnadir.addActionListener(this);
 		
-		txtErrorAlInsertar = new JTextField();
-		txtErrorAlInsertar.setText("Error al insertar el arma");
-		txtErrorAlInsertar.setBackground(new Color(192, 192, 192));
-		txtErrorAlInsertar.setEnabled(false);
-		txtErrorAlInsertar.setEditable(false);
-		txtErrorAlInsertar.setBounds(448, 514, 122, 19);
-		contentPanel.add(txtErrorAlInsertar);
-		txtErrorAlInsertar.setColumns(10);
+		txtrErrorAlInsertar = new JTextArea();
+		txtrErrorAlInsertar.setFont(new Font("OCR A Extended", Font.PLAIN, 13));
+		txtrErrorAlInsertar.setVisible(false);
+		txtrErrorAlInsertar.setForeground(new Color(255, 0, 0));
+		txtrErrorAlInsertar.setText("ERROR AL INSERTAR EL ARMA");
+		txtrErrorAlInsertar.setBackground(new Color(192, 192, 192));
+		txtrErrorAlInsertar.setBounds(358, 471, 268, 22);
+		contentPanel.add(txtrErrorAlInsertar);
+		
+		txtrAtributoAnadido = new JTextArea();
+		txtrAtributoAnadido.setFont(new Font("OCR A Extended", Font.PLAIN, 13));
+		txtrAtributoAnadido.setVisible(false);
+		txtrAtributoAnadido.setForeground(new Color(0, 0, 0));
+		txtrAtributoAnadido.setText("ATRIBUTO AÑADIDO CON ÉXITO");
+		txtrAtributoAnadido.setBackground(new Color(192, 192, 192));
+		txtrAtributoAnadido.setBounds(625, 391, 268, 22);
+		contentPanel.add(txtrAtributoAnadido);
+		btnAnadir.addActionListener(this);
 
 	}
 
@@ -177,6 +194,7 @@ public class InsertarArma extends JDialog implements ActionListener, KeyListener
 				txtNombre.setEditable(true);
 
 				btnAnadir.setVisible(true);
+				txtrAtributoAnadido.setVisible(false);
 
 				if (comboBoxAtributo.getSelectedItem().equals("Otro")) {
 					txtAtributo.setEditable(true);
@@ -193,11 +211,13 @@ public class InsertarArma extends JDialog implements ActionListener, KeyListener
 				txtNombre.setEditable(false);
 
 				btnAnadir.setVisible(false);
+				txtrAtributoAnadido.setVisible(false);
 			}
 		}
 
 		if (btnAnadir == e.getSource()) {
 			// CREAR JSON
+			try {
 			if (txtAtributo.getText().equals("Modificaciones")) {
 				modificaciones.put(txtNombre.getText());
 			} else if (txtAtributo.getText().equals("Modo_Disparo")) {
@@ -207,39 +227,58 @@ public class InsertarArma extends JDialog implements ActionListener, KeyListener
 			} else if (txtAtributo.getText().toLowerCase().equals("ergonomia")
 					|| txtAtributo.getText().toLowerCase().equals("capacidad")
 					|| txtAtributo.getText().toLowerCase().equals("cadencia")) {
+				
 				int numero = Integer.valueOf(txtNombre.getText());
 				jsonArma.put(txtAtributo.getText().toLowerCase(), numero);
 			} else {
 				jsonArma.put(txtAtributo.getText(), txtNombre.getText());
 			}
+			
+			txtAtributo.setText("");
+			txtNombre.setText("");
+			txtrAtributoAnadido.setText("ATRIBUTO INTRODUCIDO CON ÉXITO");
+			btnAnadir.setEnabled(false);
+			
+			
+			}catch (Exception e1) {
+				txtrAtributoAnadido.setText("ERROR AL INTRODUCIR EL ATRIBUTO");
+			}
+			txtrAtributoAnadido.setVisible(true);
 		}
 
 		if (btnInsertarArma == e.getSource()) {
-			
-			jsonArma.put("nombre", nombre.getText());
-			jsonArma.put("tipo", tipo.getSelectedItem());
-			
-			if(!modificaciones.isEmpty()) {
-				jsonArma.put("modificaciones", modificaciones);
-			}
-			
-			if(!municiones.isEmpty()) {
-				jsonArma.put("municiones", municiones);
-			}
-			
-			if(!modo_disparo.isEmpty()) {
-				jsonArma.put("modo_disparo", modo_disparo);
-			}
-			
 
-			String jsonString = jsonArma.toString(4);
+			boolean insertado;
 
-			boolean insertado = controller.insertArma(jsonString);
+			MongoCursor<Document> doc = controller.findByAtributo(nombre.getText(), "nombre");
+
+			if (doc.hasNext()) {
+				insertado = false;
+			} else {
+				jsonArma.put("nombre", nombre.getText());
+				jsonArma.put("tipo", tipo.getSelectedItem());
+
+				if (!modificaciones.isEmpty()) {
+					jsonArma.put("modificaciones", modificaciones);
+				}
+
+				if (!municiones.isEmpty()) {
+					jsonArma.put("municiones", municiones);
+				}
+
+				if (!modo_disparo.isEmpty()) {
+					jsonArma.put("modo_disparo", modo_disparo);
+				}
+
+				String jsonString = jsonArma.toString(4);
+
+				insertado = controller.insertArma(jsonString);
+			}
 
 			if (insertado) {
 				this.dispose();
-			}else {
-				
+			} else {
+				txtrErrorAlInsertar.setVisible(true);
 			}
 
 		}

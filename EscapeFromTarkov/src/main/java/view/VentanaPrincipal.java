@@ -39,7 +39,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1014, 538);
+		setBounds(100, 100, 960,540);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(192, 192, 192));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -48,47 +48,57 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		contentPane.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\lucas\\Desktop\\DAM\\Acceso a datos\\EscapeFromTarkov\\src\\main\\resources\\LOGO (1).png"));
-		lblNewLabel.setBounds(234, -17, 488, 199);
+		lblNewLabel.setIcon(new ImageIcon(getClass().getResource("/images/LOGO.png")));
+		lblNewLabel.setBounds(223, 10, 488, 199);
 		contentPane.add(lblNewLabel);
 
 		ventanaMain = this;
+        ventanaMain.setLocationRelativeTo(null);
+
 
 		// Insertar arma
 
 		btnInsertarArma = new JButton("Insertar arma");
-		btnInsertarArma.setFont(new Font("MV Boli", Font.PLAIN, 32));
-		btnInsertarArma.setBounds(34, 249, 284, 60);
+		btnInsertarArma.setFocusPainted(false);
+		btnInsertarArma.setBackground(new Color(255, 255, 255));
+		btnInsertarArma.setFont(new Font("OCR A Extended", Font.PLAIN, 32));
+		btnInsertarArma.setBounds(20, 249, 284, 60);
 		contentPane.add(btnInsertarArma);
 		btnInsertarArma.addActionListener(this);
 
 		// Borrar arma
 
 		btnBorrarArma = new JButton("Borrar arma");
-		btnBorrarArma.setFont(new Font("MV Boli", Font.PLAIN, 32));
-		btnBorrarArma.setBounds(350, 249, 284, 60);
+		btnBorrarArma.setBackground(new Color(255, 255, 255));
+		btnBorrarArma.setFont(new Font("OCR A Extended", Font.PLAIN, 32));
+		btnBorrarArma.setBounds(328, 249, 284, 60);
 		contentPane.add(btnBorrarArma);
 		btnBorrarArma.addActionListener(this);
 
 		// Buscar objeto
 
 		btnBuscarArma = new JButton("Buscar objeto");
-		btnBuscarArma.setFont(new Font("MV Boli", Font.PLAIN, 32));
-		btnBuscarArma.setBounds(153, 347, 284, 60);
+		btnBuscarArma.setBackground(new Color(255, 255, 255));
+		btnBuscarArma.setFont(new Font("OCR A Extended", Font.PLAIN, 32));
+		btnBuscarArma.setBounds(167, 328, 284, 60);
 		contentPane.add(btnBuscarArma);
 		btnBuscarArma.addActionListener(this);
 
 		// Mostrar armas
 
 		btnMostrarArmas = new JButton("Mostrar armas");
-		btnMostrarArmas.setFont(new Font("MV Boli", Font.PLAIN, 32));
-		btnMostrarArmas.setBounds(669, 249, 284, 60);
+		btnMostrarArmas.setFocusTraversalKeysEnabled(false);
+		btnMostrarArmas.setFocusPainted(false);
+		btnMostrarArmas.setBackground(new Color(255, 255, 255));
+		btnMostrarArmas.setFont(new Font("OCR A Extended", Font.PLAIN, 32));
+		btnMostrarArmas.setBounds(636, 249, 284, 60);
 		contentPane.add(btnMostrarArmas);
 		btnMostrarArmas.addActionListener(this);
 		
 		btnActualizarArma = new JButton("Actualizar Arma");
-		btnActualizarArma.setFont(new Font("MV Boli", Font.PLAIN, 32));
-		btnActualizarArma.setBounds(542, 347, 284, 60);
+		btnActualizarArma.setBackground(new Color(255, 255, 255));
+		btnActualizarArma.setFont(new Font("OCR A Extended", Font.PLAIN, 32));
+		btnActualizarArma.setBounds(477, 328, 328, 60);
 		contentPane.add(btnActualizarArma);
 		btnActualizarArma.addActionListener(this);
 	}

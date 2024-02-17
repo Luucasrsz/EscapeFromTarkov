@@ -19,6 +19,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JTextField;
+import javax.swing.JTextArea;
 
 public class ActualizarArma extends JDialog implements KeyListener, ActionListener{
 
@@ -29,6 +30,7 @@ public class ActualizarArma extends JDialog implements KeyListener, ActionListen
 	private JTextField txtValorActualizado;
 	private JButton btnActualizarArma;
 	TarkovController controller;
+	private JTextArea txtrErrorAlActualizar;
 
 	/**
 	 * Create the dialog.
@@ -36,7 +38,7 @@ public class ActualizarArma extends JDialog implements KeyListener, ActionListen
 	public ActualizarArma(TarkovController controller) {
 		this.controller = controller;
 		
-		setBounds(100, 100, 1098, 684);
+		setBounds(100, 100, 1024,605);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(192, 192, 192));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -44,39 +46,38 @@ public class ActualizarArma extends JDialog implements KeyListener, ActionListen
 		contentPanel.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(
-				"C:\\Users\\lucas\\Desktop\\DAM\\Acceso a datos\\EscapeFromTarkov\\src\\main\\resources\\LOGO (1).png"));
-		lblNewLabel.setBounds(287, 26, 499, 139);
+		lblNewLabel.setIcon(new ImageIcon(getClass().getResource("/images/LOGO.png")));
+		lblNewLabel.setBounds(237, 28, 499, 139);
 		contentPanel.add(lblNewLabel);
 
 		JLabel lblNombreDelArma = new JLabel("Nombre del arma:\r\n");
-		lblNombreDelArma.setFont(new Font("MV Boli", Font.BOLD, 28));
-		lblNombreDelArma.setBounds(396, 233, 264, 26);
+		lblNombreDelArma.setFont(new Font("OCR A Extended", Font.BOLD, 28));
+		lblNombreDelArma.setBounds(322, 216, 331, 26);
 		contentPanel.add(lblNombreDelArma);
 
 		txtNombreArma = new JTextField();
 		txtNombreArma.setFont(new Font("Arial", Font.PLAIN, 18));
 		txtNombreArma.setColumns(10);
 		txtNombreArma.setBackground(Color.WHITE);
-		txtNombreArma.setBounds(396, 284, 247, 40);
+		txtNombreArma.setBounds(339, 252, 247, 40);
 		contentPanel.add(txtNombreArma);
 		txtNombreArma.addKeyListener(this);
 
 		JLabel lblNombreDelAtributo = new JLabel("Nombre del atributo:\r\n");
-		lblNombreDelAtributo.setFont(new Font("MV Boli", Font.BOLD, 28));
-		lblNombreDelAtributo.setBounds(196, 391, 299, 26);
+		lblNombreDelAtributo.setFont(new Font("OCR A Extended", Font.BOLD, 28));
+		lblNombreDelAtributo.setBounds(125, 341, 360, 26);
 		contentPanel.add(lblNombreDelAtributo);
 
 		JLabel lblNuevoValor = new JLabel("Nuevo valor:");
-		lblNuevoValor.setFont(new Font("MV Boli", Font.BOLD, 28));
-		lblNuevoValor.setBounds(550, 391, 264, 26);
+		lblNuevoValor.setFont(new Font("OCR A Extended", Font.BOLD, 28));
+		lblNuevoValor.setBounds(556, 341, 241, 26);
 		contentPanel.add(lblNuevoValor);
 
 		txtAtributo = new JTextField();
 		txtAtributo.setFont(new Font("Arial", Font.PLAIN, 18));
 		txtAtributo.setColumns(10);
 		txtAtributo.setBackground(Color.WHITE);
-		txtAtributo.setBounds(218, 427, 247, 40);
+		txtAtributo.setBounds(173, 378, 247, 40);
 		contentPanel.add(txtAtributo);
 		txtAtributo.addKeyListener(this);
 
@@ -84,16 +85,24 @@ public class ActualizarArma extends JDialog implements KeyListener, ActionListen
 		txtValorActualizado.setFont(new Font("Arial", Font.PLAIN, 18));
 		txtValorActualizado.setColumns(10);
 		txtValorActualizado.setBackground(Color.WHITE);
-		txtValorActualizado.setBounds(550, 427, 247, 40);
+		txtValorActualizado.setBounds(550, 378, 247, 40);
 		contentPanel.add(txtValorActualizado);
 		txtValorActualizado.addKeyListener(this);
 
-		btnActualizarArma = new JButton("Buscar arma");
-		btnActualizarArma.setForeground(Color.RED);
-		btnActualizarArma.setFont(new Font("MV Boli", Font.PLAIN, 32));
+		btnActualizarArma = new JButton("Actualizar Arma");
 		btnActualizarArma.setEnabled(false);
-		btnActualizarArma.setBounds(380, 534, 263, 60);
+		btnActualizarArma.setForeground(new Color(0, 0, 0));
+		btnActualizarArma.setFont(new Font("OCR A Extended", Font.PLAIN, 32));
+		btnActualizarArma.setBounds(321, 449, 343, 60);
 		contentPanel.add(btnActualizarArma);
+		
+		txtrErrorAlActualizar = new JTextArea();
+		txtrErrorAlActualizar.setVisible(false);
+		txtrErrorAlActualizar.setForeground(new Color(255, 0, 0));
+		txtrErrorAlActualizar.setText("ERROR AL ACTUALIZAR ARMA");
+		txtrErrorAlActualizar.setBackground(new Color(192, 192, 192));
+		txtrErrorAlActualizar.setBounds(391, 524, 216, 22);
+		contentPanel.add(txtrErrorAlActualizar);
 		btnActualizarArma.addActionListener(this);
 		
 	}
@@ -103,11 +112,11 @@ public class ActualizarArma extends JDialog implements KeyListener, ActionListen
 		// TODO Auto-generated method stub
 		if(btnActualizarArma == e.getSource()) {
 			boolean actualizado = controller.updateArma(txtNombreArma.getText(), txtAtributo.getText(), txtValorActualizado.getText());
-
+			
 			if (actualizado) {
 				this.dispose();
 			}else {
-				
+				txtrErrorAlActualizar.setVisible(true);
 			}
 		}
 	}
@@ -145,6 +154,4 @@ public class ActualizarArma extends JDialog implements KeyListener, ActionListen
 		// TODO Auto-generated method stub
 		
 	}
-
-
 }

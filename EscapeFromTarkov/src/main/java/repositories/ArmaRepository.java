@@ -56,8 +56,9 @@ public class ArmaRepository {
 
 	public FindIterable<Document> showArmas() {
 		logger.info("showArmas()");
-
-		FindIterable<Document> doc = collection.find();
+		Bson filtro = Projections.fields(Projections.excludeId());
+		
+		FindIterable<Document> doc = collection.find().projection(filtro);
 
 		return doc;
 	}
