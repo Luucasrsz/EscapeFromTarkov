@@ -32,9 +32,7 @@ public class ActualizarArma extends JDialog implements KeyListener, ActionListen
 	TarkovController controller;
 	private JTextArea txtrErrorAlActualizar;
 
-	/**
-	 * Create the dialog.
-	 */
+
 	public ActualizarArma(TarkovController controller) {
 		this.controller = controller;
 		

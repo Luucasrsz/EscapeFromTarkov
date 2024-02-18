@@ -216,7 +216,7 @@ public class InsertarArma extends JDialog implements ActionListener, KeyListener
 		}
 
 		if (btnAnadir == e.getSource()) {
-			// CREAR JSON
+			
 			try {
 			if (txtAtributo.getText().equals("Modificaciones")) {
 				modificaciones.put(txtNombre.getText());

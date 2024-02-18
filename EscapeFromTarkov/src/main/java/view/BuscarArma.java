@@ -1,8 +1,5 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -15,7 +12,6 @@ import com.google.gson.GsonBuilder;
 import com.mongodb.client.MongoCursor;
 
 import controller.TarkovController;
-import io.IO;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -28,9 +24,8 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
-import javax.swing.JScrollBar;
+
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 
 public class BuscarArma extends JDialog implements ActionListener, KeyListener {
 
@@ -51,7 +46,7 @@ public class BuscarArma extends JDialog implements ActionListener, KeyListener {
 		this.controller = controller;
 
 		getContentPane().setBackground(new Color(192, 192, 192));
-		setBounds(100, 100, 960,540);
+		setBounds(100, 100, 960, 540);
 		getContentPane().setLayout(null);
 		contentPanel.setBounds(0, 542, 1086, 1);
 		contentPanel.setBackground(new Color(192, 192, 192));
@@ -118,7 +113,7 @@ public class BuscarArma extends JDialog implements ActionListener, KeyListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+
 		if (btnBuscarArma == e.getSource()) {
 			GsonBuilder builder = new GsonBuilder().setPrettyPrinting();
 			Gson gson = builder.create();

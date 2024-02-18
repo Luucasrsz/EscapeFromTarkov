@@ -28,7 +28,7 @@ public class MostrarArmas extends JDialog {
 	private TarkovController controller;
 
 	/**
-	 * Create the dialog.
+	 * Create the dialog
 	 */
 	public MostrarArmas(TarkovController controller) {
 		this.controller = controller;

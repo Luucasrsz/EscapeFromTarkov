@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.TarkovController;
-import io.IO;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -28,14 +27,11 @@ public class BorrarArma extends JDialog implements ActionListener {
 	private TarkovController controller;
 	private JLabel lblEliminado;
 
-	/**
-	 * Create the dialog.
-	 */
 	public BorrarArma(TarkovController controller) {
-		
+
 		this.controller = controller;
-		
-		setBounds(100, 100, 960,540);
+
+		setBounds(100, 100, 960, 540);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(192, 192, 192));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -60,24 +56,22 @@ public class BorrarArma extends JDialog implements ActionListener {
 		lblNewLabel.setFont(new Font("OCR A Extended", Font.PLAIN, 30));
 		lblNewLabel.setBounds(77, 249, 304, 28);
 		contentPanel.add(lblNewLabel);
-		
+
 		lblEliminado = new JLabel("");
 		lblEliminado.setForeground(new Color(255, 0, 0));
 		lblEliminado.setBounds(391, 424, 175, 26);
 		contentPanel.add(lblEliminado);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setBounds(213, 27, 499, 139);
 		contentPanel.add(lblNewLabel_1);
 		lblNewLabel_1.setIcon(new ImageIcon(getClass().getResource("/images/LOGO.png")));
-		
 
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
 	}
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

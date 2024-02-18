@@ -5,10 +5,9 @@ import java.awt.EventQueue;
 import controller.TarkovController;
 import repositories.ArmaRepository;
 
-public class PruebaInterfaz {
+public class Main {
 	public static void main(String[] args) {
 		
-		TarkovController controller = new TarkovController(new ArmaRepository());
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

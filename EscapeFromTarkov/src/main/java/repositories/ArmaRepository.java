@@ -1,15 +1,10 @@
 package repositories;
 
-import static com.mongodb.client.model.Filters.lt;
-
-import java.io.File;
 import java.util.logging.Logger;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
-import org.h2.util.json.JSONObject;
 
-import static com.mongodb.client.model.Updates.set;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
@@ -57,7 +52,6 @@ public class ArmaRepository {
 	public FindIterable<Document> showArmas() {
 		logger.info("showArmas()");
 		Bson filtro = Projections.fields(Projections.excludeId());
-		
 		FindIterable<Document> doc = collection.find().projection(filtro);
 
 		return doc;
@@ -74,17 +68,16 @@ public class ArmaRepository {
 		}
 
 	}
-	
+
 	public boolean updateArma(String arma, String atributo, String valorActualizado) {
 
 		Bson filtro = Filters.eq("nombre", arma);
-        Bson actualizacion = Updates.set(atributo, valorActualizado);
-         
+		Bson actualizacion = Updates.set(atributo, valorActualizado);
+
 		UpdateResult result = collection.updateOne(filtro, actualizacion);
-		
+
 		return result.getModifiedCount() > 0 ? true : false;
-		
-		
+
 	}
 
 }

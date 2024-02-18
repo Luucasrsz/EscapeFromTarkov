@@ -22,14 +22,8 @@
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
-			<version>20210307</version> <!-- Puedes verificar la última versión
-			en el repositorio Maven -->
+			<version>20210307</version> 
 		</dependency>
 
-		<dependency>
-			<groupId>es.joseluisgs</groupId>
-			<artifactId>P02-Encordados-JPA</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
 	</dependencies>
 </project>

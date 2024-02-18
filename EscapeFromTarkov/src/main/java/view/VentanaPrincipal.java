@@ -84,7 +84,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		contentPane.add(btnBuscarArma);
 		btnBuscarArma.addActionListener(this);
 
-		// Mostrar armas
+		
 
 		btnMostrarArmas = new JButton("Mostrar armas");
 		btnMostrarArmas.setFocusTraversalKeysEnabled(false);
